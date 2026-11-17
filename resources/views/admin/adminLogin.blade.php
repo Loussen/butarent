@@ -14,7 +14,7 @@
 
     <div
         class="md:w-1/2 w-4/5 p-4 bg-white border border-gray-200 rounded-lg shadow ">
-        <form class="space-y-6 " method="POST" action="{{ route('admin.login') }}">
+        <form class="space-y-6 " method="POST" action="{{ route('admin.login.submit') }}">
             @csrf
             <h5 class="mb-6 text-xl font-medium text-gray-900 dark:text-white ">Sign in</h5>
             <div class="mb-6">

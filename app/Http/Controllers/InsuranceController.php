@@ -63,7 +63,7 @@ class InsuranceController extends Controller
         $car->insu_id = $insurance->id;
         $car->save();
 
-        return redirect()->route('insurances.index');
+        return redirect()->route('insurances.index')->with('success', __('Insurance created successfully.'));
 
     }
 
@@ -104,7 +104,7 @@ class InsuranceController extends Controller
 
         $insurance->delete();
 
-        return redirect()->route('insurances.index');
+        return redirect()->route('insurances.index')->with('success', __('Insurance deleted successfully.'));
     }
 
 }

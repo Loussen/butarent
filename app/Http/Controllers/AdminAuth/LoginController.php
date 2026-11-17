@@ -11,7 +11,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/admin/dashboard'; // Adjust the admin dashboard route as per your project's setup
+    protected $redirectTo = '/buta_manager/dashboard';
 
     public function __construct()
     {

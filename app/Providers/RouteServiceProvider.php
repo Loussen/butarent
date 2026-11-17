@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/';
-    public const ADMIN = '/admin/dashboard';
+    public const ADMIN = '/buta_manager/dashboard';
 
 
     /**

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Brand;
 use App\Models\Car;
+use Illuminate\Http\Request;
 
 class clientCarController extends Controller
 {
@@ -12,8 +13,12 @@ class clientCarController extends Controller
      */
     public function index()
     {
-        $cars = Car::where('status', '=', 'available')->paginate(9);
-        return view('cars.cars', compact('cars'));
+        $cars = Car::with(['images', 'brandRelation', 'carModel'])
+            ->where('status', '=', 'available')
+            ->paginate(9);
+        $brands = Brand::with('carModels')->orderBy('name')->get();
+
+        return view('cars.cars', compact('cars', 'brands'));
     }
 
     /**
@@ -35,9 +40,11 @@ class clientCarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Car $car)
     {
-        //
+        $car->load(['images', 'brandRelation', 'carModel']);
+
+        return view('cars.show', compact('car'));
     }
 
     /**

@@ -96,7 +96,7 @@ class ReservationController extends Controller
         $reservation = Reservation::find($reservation->id);
         $reservation->payment_status = $request->payment_status;
         $reservation->save();
-        return redirect()->route('adminDashboard');
+        return redirect()->route('adminDashboard')->with('success', __('Payment status updated successfully.'));
     }
 
     // Edit and Update Reservation Status
@@ -116,7 +116,7 @@ class ReservationController extends Controller
             $car->save();
         }
         $reservation->save();
-        return redirect()->route('adminDashboard');
+        return redirect()->route('adminDashboard')->with('success', __('Reservation status updated successfully.'));
     }
 
     /**

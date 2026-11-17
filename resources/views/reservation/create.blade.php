@@ -10,7 +10,7 @@
                 </h2>
 
                 <div class=" flex items-end mt-8 ms-4">
-                    <h3 class="font-car text-gray-500 text-2xl">Price:</h3>
+                    <h3 class="font-car text-gray-500 text-2xl">{{ __('Price') }}:</h3>
                     <p>
                         <span
                             class=" text-3xl font-bold text-pr-400 ms-3 me-1 border border-pr-400 p-2 rounded-md">{{ $car->price_per_day }}
@@ -24,7 +24,7 @@
 
                 <div class=" flex items-center justify-around mt-10 me-10">
                     <div class="w-1/5 md:w-1/3 h-[0.25px] bg-gray-500 "> </div>
-                    <p>Order Informations</p>
+                    <p>{{ __('Order information') }}</p>
                     <div class="w-1/5 md:w-1/3 h-[0.25px] bg-gray-500 "> </div>
 
                 </div>
@@ -38,8 +38,7 @@
                             <input type="text" hidden name="user" value="{{ Auth::user()->id ?? '' }}">
 
                             <div class="sm:col-span-3">
-                                <label for="firstname" class="block text-sm font-medium leading-6 text-gray-900">First
-                                    Name</label>
+                                <label for="firstname" class="block text-sm font-medium leading-6 text-gray-900">{{ __('First Name') }}</label>
                                 <div class="mt-2">
                                     <input type="text" name="firstname" id="firstname" value="{{ $user->firstname ?? '' }}"
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pr-400 sm:text-sm sm:leading-6">
@@ -50,8 +49,7 @@
                             </div>
 
                             <div class="sm:col-span-3">
-                                <label for="lastname" class="block text-sm font-medium leading-6 text-gray-900">Last
-                                    Name</label>
+                                <label for="lastname" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Last Name') }}</label>
                                 <div class="mt-2">
                                     <input type="text" name="lastname" id="lastname" value="{{ $user->lastname ?? '' }}"
                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pr-400 sm:text-sm sm:leading-6">
@@ -62,7 +60,7 @@
                             </div>
 
                             <div class="sm:col-span-3">
-                                <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone number</label>
+                                <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Phone Number') }}</label>
                                 <div class="mt-2">
                                     <input type="phone" name="phone" id="phone" value="{{ $user->phone ?? '' }}"
                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pr-400 sm:text-sm sm:leading-6">
@@ -74,7 +72,7 @@
 
                             <div class="sm:col-span-3">
                                 <label for="email"
-                                    class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                                    class="block text-sm font-medium leading-6 text-gray-900">{{ __('Email') }}</label>
                                 <div class="mt-2">
                                     <input type="text" name="email" id="email" value="{{ old('email') ?? '' }}"
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pr-400 sm:text-sm sm:leading-6">
@@ -85,7 +83,7 @@
                             </div>
 
                             <div class="sm:col-span-3">
-                                <label for="start_date" class="block text-sm font-medium leading-6 text-gray-900">Start at
+                                <label for="start_date" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Started at') }}
                                 </label>
                                 <div class="mt-2">
                                     <input type="date" name="start_date" id="start_date"
@@ -96,7 +94,7 @@
                                 @enderror
                             </div>
                             <div class="sm:col-span-3">
-                                <label for="end_date" class="block text-sm font-medium leading-6 text-gray-900">End at
+                                <label for="end_date" class="block text-sm font-medium leading-6 text-gray-900">{{ __('End at') }}
                                 </label>
                                 <div class="mt-2">
                                     <input type="date" name="end_date" id="end_date"
@@ -109,8 +107,7 @@
                         </div>
                         <div class="mt-12 md:block hidden  ">
                             <button type="submit"
-                                class="text-white bg-pr-400 p-3 w-full rounded-lg font-bold hover:bg-black shadow-xl hover:shadow-none ">Order
-                                Now</button>
+                                class="text-white bg-pr-400 p-3 w-full rounded-lg font-bold hover:bg-pr-500 shadow-xl hover:shadow-none ">{{ __('Order Now') }}</button>
                         </div>
                     </form>
                 </div>
@@ -121,13 +118,13 @@
 
             <div class="md:w-1/3 flex flex-col justify-start items-center">
                 <div class="relative mx-3 mt-3 flex h-[200px] w-3/4   overflow-hidden rounded-xl shadow-lg">
-                    <img loading="lazy" class="h-full w-full object-cover" src="{{ $car->image }}" alt="product image" />
+                    <img loading="lazy" class="h-full w-full object-cover" src="{{ $car->coverPath() }}" alt="{{ $car->brandName() }} {{ $car->modelName() }}" />
+                    @if ($car->reduce)
                     <span
-                        class="absolute w-24 h-8 py-1 top-0 left-0 m-2 rounded-full bg-pr-400 px-2 text-center text-sm font-medium text-white">{{ $car->reduce }}
-                        %
-                        OFF</span>
+                        class="absolute top-2 left-2 rounded-md bg-pr-400 px-2 py-1 text-center text-xs font-semibold text-white">-{{ $car->reduce }}%</span>
+                    @endif
                 </div>
-                <p class=" ms-4 max-w-full font-car text-xl mt-3 md:block hidden">{{ $car->brand }} {{ $car->model }}
+                <p class=" ms-4 max-w-full font-car text-xl mt-3 md:block hidden">{{ $car->brandName() }} {{ $car->modelName() }}
                     {{ $car->engine }}
                 </p>
                 <div class="mt-3 ms-4 md:block hidden">
@@ -149,31 +146,27 @@
 
                     @if ($car->insurance)
                         <p class="mx-2 font-car text-gray-700  text-sm"><span
-                                class="font-car text-gray-600 text-lg">Insurance: </span>{{ $car->insurance->type }} from
-                            {{ $car->insurance->company }} Insurances</p>
+                                class="font-car text-gray-600 text-lg">{{ __('Insurance') }}: </span>{{ $car->insurance->type }} — {{ $car->insurance->company }}</p>
                     @else
-                        <p class="mx-3 text-red-600 text-md "><span class="font-car text-gray-600 text-lg">Insurance:
-                            </span> Not asured !!!</p>
+                        <p class="mx-3 text-red-600 text-md "><span class="font-car text-gray-600 text-lg">{{ __('Insurance') }}:
+                            </span> {{ __('Not insured') }}</p>
                     @endif
                 </div>
 
                 <div class=" w-full   mt-8 ms-8">
-                    <p id="duration" class="font-car text-gray-600 text-lg ms-2">Duration: <span
-                            class="mx-2 font-car text-md font-medium text-gray-700 border border-pr-400 p-2 rounded-md "> X
-                            days</span>
+                    <p id="duration" class="font-car text-gray-600 text-lg ms-2">{{ __('Duration') }}: <span
+                            class="mx-2 font-car text-md font-medium text-gray-700 border border-pr-400 p-2 rounded-md "> — </span>
                     </p>
                 </div>
 
                 <div class=" w-full   mt-8 ms-8">
-                    <p id="total-price" class="font-car text-gray-600 text-lg ms-2">Total Price: <span
-                            class="mx-2 font-car text-md font-medium text-gray-700 border border-pr-400 p-2 rounded-md "> Y
-                            $</span>
+                    <p id="total-price" class="font-car text-gray-600 text-lg ms-2">{{ __('Total Price') }}: <span
+                            class="mx-2 font-car text-md font-medium text-gray-700 border border-pr-400 p-2 rounded-md "> — </span>
                     </p>
                 </div>
                 <div id="mobile_submit_button" class="mt-12 w-full md:hidden  ">
                     <button type="submit"
-                        class="text-white bg-pr-400 p-3 w-full rounded-lg font-bold hover:bg-black shadow-xl hover:shadow-none ">Order
-                        Now</button>
+                        class="text-white bg-pr-400 p-3 w-full rounded-lg font-bold hover:bg-pr-500 shadow-xl hover:shadow-none ">{{ __('Order Now') }}</button>
                 </div>
             </div>
         </div>
@@ -196,11 +189,11 @@
                     var pricePerDay = {{ $car->price_per_day }};
                     var totalPrice = duration * pricePerDay;
 
-                    $('#duration span').text(duration + ' days');
-                    $('#total-price span').text(totalPrice + ' $');
+                    $('#duration span').text(duration + ' ' + @json(__('days')));
+                    $('#total-price span').text(totalPrice + ' AZN');
                 } else {
-                    $('#duration span').text('X days');
-                    $('#total-price span').text('Y $');
+                    $('#duration span').text('—');
+                    $('#total-price span').text('—');
                 }
             });
         });

@@ -1,2 +1,11 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /reservations
+Disallow: /invoice
+Disallow: /login
+Disallow: /register
+Disallow: /password
+
+Sitemap: https://butarent.az/sitemap.xml

@@ -12,19 +12,35 @@ use App\Http\Controllers\addNewAdminController;
 use App\Http\Controllers\invoiceController;
 use App\Http\Controllers\AdminAuth\LoginController;
 use App\Http\Controllers\carSearchController;
+use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\SiteContentController;
+use App\Http\Controllers\PageController;
 use App\Models\User;
 use App\Models\Car;
 use App\Models\Reservation;
 
 
 // ------------------- guest routes --------------------------------------- //
+Route::get('/locale/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, ['az', 'en', 'ru'], true), 404);
+    session(['locale' => $locale]);
+
+    return redirect()->back();
+})->name('locale.switch');
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
 Route::get('/', function () {
-    $cars = Car::take(6)->where('status', '=', 'available')->get();
+    $cars = Car::with(['images', 'brandRelation', 'carModel'])->take(6)->where('status', '=', 'available')->get();
     return view('home', compact('cars'));
 })->name('home');
 
 Route::get('/cars', [clientCarController::class, 'index'])->name('cars');
 Route::get('/cars/search', [carSearchController::class, 'search'])->name('carSearch');
+Route::get('/rent-a-car/{car}', [clientCarController::class, 'show'])->name('car.details');
+Route::get('/cars/{car}', function (Car $car) {
+    return redirect()->to(route('car.details', $car), 301);
+});
 
 Route::get('location', function () {
     return view('location');
@@ -34,20 +50,21 @@ Route::get('contact_us', function () {
     return view('contact_us');
 })->name('contact_us');
 
-Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
-Route::post('admin/login', [LoginController::class, 'login'])->name('admin.login.submit');
+Route::get('/buta_manager', [LoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/buta_manager', [LoginController::class, 'login'])->name('admin.login.submit');
 
-Route::redirect('/admin', 'admin/login');
+// Security: never expose or redirect /admin*
+Route::any('/admin/{path?}', function () {
+    abort(404);
+})->where('path', '.*');
 
-Route::get('/privacy_policy',
-function () {
-    return view('Privacy_Policy');
-})->name('privacy_policy');
+Route::get('/privacy_policy', [PageController::class, 'showPublic'])
+    ->defaults('slug', 'privacy_policy')
+    ->name('privacy_policy');
 
-Route::get('/terms_conditions',
-function () {
-    return view('Terms_Conditions');
-})->name('terms_conditions');
+Route::get('/terms_conditions', [PageController::class, 'showPublic'])
+    ->defaults('slug', 'terms_conditions')
+    ->name('terms_conditions');
 
 
 // -------------------------------------------------------------------------//
@@ -55,9 +72,9 @@ function () {
 
 
 
-// ------------------- admin routes --------------------------------------- //
+// ------------------- admin routes (hidden path) --------------------------- //
 
-Route::prefix('admin')->middleware('admin')->group(function () {
+Route::prefix('buta_manager')->middleware('admin')->group(function () {
 
     Route::get(
         '/dashboard',
@@ -90,6 +107,13 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     // Route::delete('/deleteUser/{user}', [usersController::class, 'destroy'])->name('deleteUser');
 
     Route::get('/userDetails/{user}', [usersController::class, 'show'])->name('userDetails');
+
+    Route::get('/site-content', [SiteContentController::class, 'edit'])->name('siteContent.edit');
+    Route::put('/site-content', [SiteContentController::class, 'update'])->name('siteContent.update');
+
+    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
+    Route::get('/pages/{page}/edit', [PageController::class, 'edit'])->name('pages.edit');
+    Route::put('/pages/{page}', [PageController::class, 'update'])->name('pages.update');
 });
 
 // --------------------------------------------------------------------------//

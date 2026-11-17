@@ -122,7 +122,7 @@ class addNewAdminController extends Controller
 
 
         return $this->registered($request, $user)
-            ?: redirect()->route('users');
+            ?: redirect()->route('users')->with('success', __('Admin created successfully.'));
     }
 
 
