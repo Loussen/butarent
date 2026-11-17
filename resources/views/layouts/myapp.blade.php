@@ -45,6 +45,8 @@
             overflow: hidden;
         }
         .ts-dropdown .active { background-color: #fff5e6 !important; color: #111827 !important; }
+        button[data-collapse-toggle][aria-expanded="true"] > svg:nth-of-type(1) { display: none; }
+        button[data-collapse-toggle][aria-expanded="true"] > svg:nth-of-type(2) { display: block; }
     </style>
 </head>
 
@@ -64,7 +66,53 @@
                         <img loading="lazy" src="/images/logos/LOGOtext.png" class="mr-2 h-8 w-auto" alt="{{ config('app.name') }}" />
                     </a>
 
-                    <div class="hidden justify-between items-center w-full lg:flex lg:w-auto" id="mobile-menu-2">
+                    <div class="flex items-center gap-2 lg:order-2">
+                        @include('partials.lang-switcher')
+                        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                            class="text-black bg-pr-400 hover:bg-pr-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
+                            type="button">
+                            <img loading="lazy" src="/images/user.png" width="24" alt="user icon" class="mr-3">
+                            <p>Admin ( {{ Auth::user()->name }} )</p>
+                            <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+
+                        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                            <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+                                <li>
+                                    <a href="{{ route('home') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('View site') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.profile.edit') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('Profile') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('adminDashboard') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('Dashboard') }}</a>
+                                </li>
+                                <li>
+                                    <a class="block px-4 py-2 hover:bg-pr-200" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button data-collapse-toggle="mobile-menu-2" type="button"
+                            class="inline-flex items-center p-2 text-pr-400 rounded-lg lg:hidden hover:bg-pr-50 focus:outline-none focus:ring-2 focus:ring-pr-200"
+                            aria-controls="mobile-menu-2" aria-expanded="false">
+                            <span class="sr-only">{{ __('Open main menu') }}</span>
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="hidden order-last w-full justify-between items-center lg:order-1 lg:flex lg:w-auto" id="mobile-menu-2">
                         <ul class="flex flex-col font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             <li>
                                 <a href="{{ route('adminDashboard') }}">
@@ -116,47 +164,6 @@
                             </li>
                         </ul>
                     </div>
-
-                    @include('partials.lang-switcher')
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                        class="text-black bg-pr-400 hover:bg-pr-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
-                        type="button">
-                        <img loading="lazy" src="/images/user.png" width="24" alt="user icon" class="mr-3">
-                        <p>Admin ( {{ Auth::user()->name }} )</p>
-                        <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-
-                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                        <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
-                            <li>
-                                <a href="{{ route('home') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('View site') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.profile.edit') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('Profile') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('adminDashboard') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('Dashboard') }}</a>
-                            </li>
-                            <li>
-                                <a class="block px-4 py-2 hover:bg-pr-200" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <button data-collapse-toggle="mobile-menu-2" type="button"
-                        class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                        aria-controls="mobile-menu-2" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
                 </div>
             </nav>
         </header>
@@ -167,43 +174,6 @@
                     <a href="{{ route('home') }}" class="flex items-center">
                         <img loading="lazy" src="/images/logos/LOGOtext.png" class="mr-2 h-8 w-auto" alt="{{ config('app.name') }}" />
                     </a>
-
-                    <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-                        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                            <li>
-                                <a href="{{ route('home') }}">
-                                    <div class="group text-center">
-                                        <div class="group-hover:cursor-pointer">{{ __('Home') }}</div>
-                                        <div class="block invisible bg-pr-400 w-12 h-1 rounded-md text-center -bottom-1 mx-auto relative group-hover:visible"></div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('cars') }}">
-                                    <div class="group text-center">
-                                        <div class="group-hover:cursor-pointer">{{ __('Cars') }}</div>
-                                        <div class="block invisible bg-pr-400 w-8 h-1 rounded-md text-center -bottom-1 mx-auto relative group-hover:visible"></div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('location') }}">
-                                    <div class="group text-center">
-                                        <div class="group-hover:cursor-pointer">{{ __('Location') }}</div>
-                                        <div class="block invisible bg-pr-400 w-16 h-1 rounded-md text-center -bottom-1 mx-auto relative group-hover:visible"></div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('contact_us') }}">
-                                    <div class="group text-center">
-                                        <div class="group-hover:cursor-pointer">{{ __('Contact Us') }}</div>
-                                        <div class="block invisible bg-pr-400 w-20 h-1 rounded-md text-center -bottom-1 mx-auto relative group-hover:visible"></div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
 
                     <div class="flex items-center gap-2 lg:order-2">
                         @include('partials.lang-switcher')
@@ -249,13 +219,53 @@
                         @endauth
 
                         <button data-collapse-toggle="mobile-menu-2" type="button"
-                            class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                            class="inline-flex items-center p-2 text-pr-400 rounded-lg lg:hidden hover:bg-pr-50 focus:outline-none focus:ring-2 focus:ring-pr-200"
                             aria-controls="mobile-menu-2" aria-expanded="false">
-                            <span class="sr-only">Open main menu</span>
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <span class="sr-only">{{ __('Open main menu') }}</span>
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                             </svg>
+                            <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
                         </button>
+                    </div>
+
+                    <div class="hidden order-last w-full justify-between items-center lg:order-1 lg:flex lg:w-auto" id="mobile-menu-2">
+                        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                            <li>
+                                <a href="{{ route('home') }}">
+                                    <div class="group text-center">
+                                        <div class="group-hover:cursor-pointer">{{ __('Home') }}</div>
+                                        <div class="block invisible bg-pr-400 w-12 h-1 rounded-md text-center -bottom-1 mx-auto relative group-hover:visible"></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('cars') }}">
+                                    <div class="group text-center">
+                                        <div class="group-hover:cursor-pointer">{{ __('Cars') }}</div>
+                                        <div class="block invisible bg-pr-400 w-8 h-1 rounded-md text-center -bottom-1 mx-auto relative group-hover:visible"></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('location') }}">
+                                    <div class="group text-center">
+                                        <div class="group-hover:cursor-pointer">{{ __('Location') }}</div>
+                                        <div class="block invisible bg-pr-400 w-16 h-1 rounded-md text-center -bottom-1 mx-auto relative group-hover:visible"></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('contact_us') }}">
+                                    <div class="group text-center">
+                                        <div class="group-hover:cursor-pointer">{{ __('Contact Us') }}</div>
+                                        <div class="block invisible bg-pr-400 w-20 h-1 rounded-md text-center -bottom-1 mx-auto relative group-hover:visible"></div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
