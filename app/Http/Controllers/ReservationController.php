@@ -48,6 +48,9 @@ class ReservationController extends Controller
         $end = Carbon::parse($request->end_date);
 
         $reservation = new Reservation();
+        if (auth()->check()) {
+            $reservation->user_id = auth()->id();
+        }
         $reservation->firstname = $request->firstname;
         $reservation->lastname = $request->lastname;
         $reservation->phone = $request->phone;

@@ -72,8 +72,8 @@
                                     {{ Carbon\Carbon::parse($client->created_at)->format('Y-m-d') }}
                                 </td>
                                 <td class="px-4 py-3 text-sm text-center">
-                                    @if ($client->reservations->count() > 0)
-                                        <span class="font-bold">{{ $client->reservations->count() }}</span>
+                                    @if (($client->reservations_count ?? 0) > 0)
+                                        <span class="font-bold">{{ $client->reservations_count }}</span>
                                         {{ __('reservation') }}
                                     @else
                                         {{ __('No active reservations') }}
