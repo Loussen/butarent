@@ -39,12 +39,25 @@ class PageController extends Controller
 
     public function showPublic(?string $slug = null)
     {
-        $slug = $slug ?: request()->route('slug');
+        $route = request()->route();
+
+        $slug = $slug
+            ?: $route?->parameter('slug')
+            ?: ($route?->defaults['slug'] ?? null)
+            ?: $this->slugFromRouteName($route?->getName());
+
         abort_unless($slug, 404);
 
         $page = Page::findBySlug($slug);
         abort_unless($page, 404);
 
         return view('page', compact('page'));
+    }
+
+    private function slugFromRouteName(?string $name): ?string
+    {
+        return in_array($name, ['privacy_policy', 'terms_conditions'], true)
+            ? $name
+            : null;
     }
 }

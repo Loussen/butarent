@@ -59,13 +59,13 @@ Route::any('/admin/{path?}', function () {
     abort(404);
 })->where('path', '.*');
 
-Route::get('/privacy_policy', [PageController::class, 'showPublic'])
-    ->defaults('slug', 'privacy_policy')
-    ->name('privacy_policy');
+Route::get('/privacy_policy', function () {
+    return app(PageController::class)->showPublic('privacy_policy');
+})->name('privacy_policy');
 
-Route::get('/terms_conditions', [PageController::class, 'showPublic'])
-    ->defaults('slug', 'terms_conditions')
-    ->name('terms_conditions');
+Route::get('/terms_conditions', function () {
+    return app(PageController::class)->showPublic('terms_conditions');
+})->name('terms_conditions');
 
 
 // -------------------------------------------------------------------------//
