@@ -100,8 +100,8 @@ class Car extends Model
     {
         $paths = $this->images->pluck('path')->filter()->values()->all();
 
-        if ($paths === [] && $this->image) {
-            return [$this->image];
+        if ($this->image && ! in_array($this->image, $paths, true)) {
+            array_unshift($paths, $this->image);
         }
 
         return $paths;

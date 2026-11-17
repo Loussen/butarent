@@ -6,28 +6,36 @@
 @if ($showCurrent)
     <div class="col-span-full">
         <label class="mb-2 block text-sm font-medium text-gray-900">{{ __('Current photos') }}</label>
+        @php
+            $galleryImages = !empty($car) ? $car->images : collect();
+            $galleryPaths = $galleryImages->pluck('path')->filter()->all();
+            $coverOnly = !empty($car) && filled($car->image) && ! in_array($car->image, $galleryPaths, true);
+            $hasAnyPhoto = $coverOnly || $galleryImages->isNotEmpty();
+        @endphp
         <div class="car-photos-grid">
-            @if (!empty($car) && $car->image && $car->images->isEmpty())
+            @if ($coverOnly)
                 <div class="car-photo-item">
                     <img src="{{ $car->image }}" alt="">
+                    <span class="car-photo-badge">{{ __('Cover') }}</span>
                     <button type="button" class="car-photo-remove" data-remove-cover="1">{{ __('Delete') }}</button>
                     <input type="checkbox" name="remove_cover" value="1" class="car-photo-check" hidden>
                 </div>
             @endif
 
-            @if (!empty($car))
-                @foreach ($car->images as $image)
-                    <div class="car-photo-item">
-                        <img src="{{ $image->path }}" alt="">
-                        <button type="button" class="car-photo-remove" data-remove-id="{{ $image->id }}">{{ __('Delete') }}</button>
-                        <input type="checkbox" name="remove_images[]" value="{{ $image->id }}" class="car-photo-check" hidden>
-                    </div>
-                @endforeach
-            @endif
+            @foreach ($galleryImages as $image)
+                <div class="car-photo-item">
+                    <img src="{{ $image->path }}" alt="">
+                    @if (!empty($car->image) && $car->image === $image->path)
+                        <span class="car-photo-badge">{{ __('Cover') }}</span>
+                    @endif
+                    <button type="button" class="car-photo-remove" data-remove-id="{{ $image->id }}">{{ __('Delete') }}</button>
+                    <input type="checkbox" name="remove_images[]" value="{{ $image->id }}" class="car-photo-check" hidden>
+                </div>
+            @endforeach
         </div>
-        @if (empty($car) || ($car->images->isEmpty() && ! $car->image))
+        @unless ($hasAnyPhoto)
             <p class="mt-2 text-sm text-gray-500">{{ __('No photos yet.') }}</p>
-        @endif
+        @endunless
     </div>
 @endif
 
@@ -94,6 +102,18 @@
         outline: 2px solid #dc2626;
         outline-offset: 1px;
         opacity: 0.55;
+    }
+    .car-photo-badge {
+        position: absolute;
+        left: 0.4rem;
+        top: 0.4rem;
+        border-radius: 0.35rem;
+        background: rgba(17, 24, 39, 0.85);
+        color: #fff;
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.2rem 0.4rem;
+        line-height: 1;
     }
     .car-photo-remove,
     .car-photos-preview-remove {
