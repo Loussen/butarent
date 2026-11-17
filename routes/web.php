@@ -15,6 +15,7 @@ use App\Http\Controllers\carSearchController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\SiteContentController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\AdminProfileController;
 use App\Models\User;
 use App\Models\Car;
 use App\Models\Reservation;
@@ -114,6 +115,9 @@ Route::prefix('buta_manager')->middleware('admin')->group(function () {
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
     Route::get('/pages/{page}/edit', [PageController::class, 'edit'])->name('pages.edit');
     Route::put('/pages/{page}', [PageController::class, 'update'])->name('pages.update');
+
+    Route::get('/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::put('/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
 });
 
 // --------------------------------------------------------------------------//

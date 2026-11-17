@@ -296,5 +296,14 @@
     "Undo": "Undo",
     "No photos yet.": "No photos yet.",
     "file(s) selected": "file(s) selected",
-    "Cover": "Cover"
+    "Cover": "Cover",
+    "Admin profile": "Admin profile",
+    "Update your name, email and password.": "Update your name, email and password.",
+    "Current password": "Current password",
+    "Required to save any profile changes.": "Required to save any profile changes.",
+    "New password": "New password",
+    "Leave blank to keep the current password.": "Leave blank to keep the current password.",
+    "Current password is incorrect.": "Current password is incorrect.",
+    "Profile updated successfully.": "Profile updated successfully.",
+    "Profile": "Profile"
 }

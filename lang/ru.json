@@ -304,5 +304,14 @@
     "Undo": "Отменить",
     "No photos yet.": "Пока нет фото.",
     "file(s) selected": "файл(ов) выбрано",
-    "Cover": "Обложка"
+    "Cover": "Обложка",
+    "Admin profile": "Профиль админа",
+    "Update your name, email and password.": "Обновите имя, email и пароль.",
+    "Current password": "Текущий пароль",
+    "Required to save any profile changes.": "Нужен для сохранения любых изменений.",
+    "New password": "Новый пароль",
+    "Leave blank to keep the current password.": "Оставьте пустым, чтобы сохранить текущий пароль.",
+    "Current password is incorrect.": "Текущий пароль неверен.",
+    "Profile updated successfully.": "Профиль успешно обновлен.",
+    "Profile": "Профиль"
 }

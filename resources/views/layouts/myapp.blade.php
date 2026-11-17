@@ -134,6 +134,9 @@
                                 <a href="{{ route('home') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('View site') }}</a>
                             </li>
                             <li>
+                                <a href="{{ route('admin.profile.edit') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('Profile') }}</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('adminDashboard') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('Dashboard') }}</a>
                             </li>
                             <li>
@@ -223,6 +226,9 @@
                             <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                                 <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                                     @if ($isAdminUser)
+                                        <li>
+                                            <a href="{{ route('admin.profile.edit') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('Profile') }}</a>
+                                        </li>
                                         <li>
                                             <a href="{{ route('adminDashboard') }}" class="block px-4 py-2 hover:bg-pr-200">{{ __('admin panel') }}</a>
                                         </li>

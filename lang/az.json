@@ -304,5 +304,14 @@
     "Undo": "Ləğv et",
     "No photos yet.": "Hələ şəkil yoxdur.",
     "file(s) selected": "fayl seçildi",
-    "Cover": "Əsas"
+    "Cover": "Əsas",
+    "Admin profile": "Admin profili",
+    "Update your name, email and password.": "Ad, e-poçt və şifrənizi yeniləyin.",
+    "Current password": "Cari şifrə",
+    "Required to save any profile changes.": "Hər hansı dəyişiklik üçün cari şifrə tələb olunur.",
+    "New password": "Yeni şifrə",
+    "Leave blank to keep the current password.": "Mövcud şifrəni saxlamaq üçün boş buraxın.",
+    "Current password is incorrect.": "Cari şifrə yanlışdır.",
+    "Profile updated successfully.": "Profil uğurla yeniləndi.",
+    "Profile": "Profil"
 }
