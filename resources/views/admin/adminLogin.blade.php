@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
     @vite('resources/css/app.css')
-    <link rel="icon" type="image/x-icon" href="/images/logos/LOGO.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/logos/favicon-32.png">
+    <link rel="apple-touch-icon" href="/images/logos/apple-touch-icon.png">
 </head>
 
 <body class="grid place-items-center h-screen bg-sec-400">

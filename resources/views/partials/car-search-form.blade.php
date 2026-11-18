@@ -88,7 +88,7 @@
     }
     .car-search-field input:focus,
     .car-search-field select:focus {
-        border-color: #ff9b00;
+        border-color: #D53338;
         box-shadow: 0 0 0 2px rgba(255, 155, 0, 0.15);
     }
     .car-search-actions {
@@ -113,11 +113,11 @@
     }
     .car-search-actions button {
         border: 0;
-        background: #ff9b00;
+        background: #D53338;
         color: #fff;
         cursor: pointer;
     }
-    .car-search-actions button:hover { background: #e68c00; }
+    .car-search-actions button:hover { background: #a82529; }
     .car-search-actions a {
         border: 1px solid #d1d5db;
         background: #fff;
@@ -150,7 +150,7 @@
     }
     .car-search-form .ts-wrapper.focus .ts-control,
     .car-search-form .ts-wrapper.input-active .ts-control {
-        border-color: #ff9b00 !important;
+        border-color: #D53338 !important;
         box-shadow: 0 0 0 2px rgba(255, 155, 0, 0.15) !important;
     }
     .car-search-form .ts-wrapper .ts-control input {
@@ -168,7 +168,7 @@
         z-index: 40 !important;
     }
     .car-search-form .ts-dropdown .active {
-        background: #fff5e6 !important;
+        background: #fdebec !important;
         color: #111827 !important;
     }
     @media (max-width: 640px) {

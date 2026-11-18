@@ -129,7 +129,7 @@
             present your reservation invoice (digital or printed) and then pay and get your car</p>
         <div class="inv-header">
             <div>
-                <h2 style="color: #ff9b00">Real Rent Car</h2>
+                <h2 style="color: #D53338">Real Rent Car</h2>
                 <ul>
                     <li>DR ANABDOUR AMMELEN </li>
                     <li>TIZNIT</li>
@@ -187,7 +187,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="color: #ff9b00">Total to pay</th>
+                        <th style="color: #D53338">Total to pay</th>
                         <td>{{ $reservation->total_price - ($reservation->total_price * 85) / 100 + $reservation->total_price }}
                             $ </td>
                     </tr>

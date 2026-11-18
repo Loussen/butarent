@@ -11,8 +11,10 @@
 
     @include('partials.seo')
     @vite('resources/css/app.css')
-    <link rel="icon" type="image/x-icon" href="/images/logos/LOGOtext.png">
-    <link rel="apple-touch-icon" href="/images/logos/LOGOtext.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/logos/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/logos/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/logos/apple-touch-icon.png">
     @vite('resources/js/flowbite.min.js')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.default.min.css">
     <style>
@@ -36,17 +38,27 @@
             outline: none !important;
         }
         .ts-wrapper.focus .ts-control {
-            border-color: #ff9b00 !important;
-            box-shadow: 0 0 0 2px rgba(255, 155, 0, 0.15) !important;
+            border-color: #D53338 !important;
+            box-shadow: 0 0 0 2px rgba(213, 51, 56, 0.18) !important;
         }
         .ts-dropdown {
             border-radius: 0.5rem !important;
             border-color: #e5e7eb !important;
             overflow: hidden;
         }
-        .ts-dropdown .active { background-color: #fff5e6 !important; color: #111827 !important; }
+        .ts-dropdown .active { background-color: #fdebec !important; color: #111827 !important; }
         button[data-collapse-toggle][aria-expanded="true"] > svg:nth-of-type(1) { display: none; }
         button[data-collapse-toggle][aria-expanded="true"] > svg:nth-of-type(2) { display: block; }
+        .site-logo {
+            display: block;
+            height: 40px;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+        }
+        @media (min-width: 1024px) {
+            .site-logo { height: 44px; max-width: 180px; }
+        }
     </style>
 </head>
 
@@ -63,13 +75,13 @@
             <nav class="sticky top-0 z-40 border-b border-gray-200/80 bg-white/95 px-4 py-2 backdrop-blur lg:px-6">
                 <div class="flex flex-wrap items-center justify-between gap-2 mx-auto max-w-screen-xl">
                     <a href="{{ route('home') }}" class="flex items-center" title="{{ __('View site') }}">
-                        <img loading="lazy" src="/images/logos/LOGOtext.png" class="mr-2 h-8 w-auto" alt="{{ config('app.name') }}" />
+                        <img loading="lazy" src="/images/logos/butarent-logo.png" class="site-logo mr-2" alt="{{ config('app.name') }}" />
                     </a>
 
                     <div class="flex items-center gap-2 lg:order-2">
                         @include('partials.lang-switcher')
                         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                            class="text-black bg-pr-400 hover:bg-pr-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
+                            class="text-white bg-pr-400 hover:bg-pr-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
                             type="button">
                             <img loading="lazy" src="/images/user.png" width="24" alt="user icon" class="mr-3">
                             <p>Admin ( {{ Auth::user()->name }} )</p>
@@ -172,7 +184,7 @@
             <nav class="sticky top-0 z-40 border-b border-gray-200/80 bg-white/95 px-4 py-2 backdrop-blur lg:px-6">
                 <div class="flex flex-wrap items-center justify-between gap-2 mx-auto max-w-screen-xl">
                     <a href="{{ route('home') }}" class="flex items-center">
-                        <img loading="lazy" src="/images/logos/LOGOtext.png" class="mr-2 h-8 w-auto" alt="{{ config('app.name') }}" />
+                        <img loading="lazy" src="/images/logos/butarent-logo.png" class="site-logo mr-2" alt="{{ config('app.name') }}" />
                     </a>
 
                     <div class="flex items-center gap-2 lg:order-2">
@@ -180,7 +192,7 @@
 
                         @auth
                             <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                                class="text-black bg-pr-400 hover:bg-pr-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
+                                class="text-white bg-pr-400 hover:bg-pr-600 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center"
                                 type="button">
                                 <img loading="lazy" src="/images/user.png" width="24" alt="user icon" class="mr-3">
                                 @if ($isAdminUser)
@@ -303,7 +315,7 @@
                 <div class="site-footer-grid">
                     <div class="site-footer-brand">
                         <a href="{{ route('home') }}">
-                            <img loading="lazy" src="/images/logos/LogoTextDark.png" alt="{{ $footerBrand }}">
+                            <img loading="lazy" src="/images/logos/butarent-logo-light.png" alt="{{ $footerBrand }}">
                         </a>
                         <p>{{ setting('contact.company_name', $footerBrand) }}</p>
                         @if (setting('contact.phone'))
@@ -377,9 +389,16 @@
             @media (min-width: 768px) {
                 .site-footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 1.5rem 2rem; align-items: start; }
             }
-            .site-footer-brand img { height: 56px; width: auto; display: block; margin-bottom: 0.75rem; }
+            .site-footer-brand img {
+                height: 52px;
+                width: auto;
+                max-width: 200px;
+                object-fit: contain;
+                display: block;
+                margin-bottom: 0.75rem;
+            }
             .site-footer-brand p { margin: 0 0 0.35rem; color: #d1d5db; font-size: 0.9rem; }
-            .site-footer-phone { color: #ff9b00; font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+            .site-footer-phone { color: #D53338; font-weight: 600; text-decoration: none; font-size: 0.95rem; }
             .site-footer-phone:hover { text-decoration: underline; }
             .site-footer h2 {
                 margin: 0 0 0.85rem;
@@ -414,14 +433,14 @@
             .site-footer-social a svg { fill: currentColor; color: inherit; }
             .site-footer-social a:hover,
             .site-footer-social a:focus-visible {
-                background: #ff9b00;
-                color: #111827;
+                background: #D53338;
+                color: #ffffff;
                 text-decoration: none;
             }
             .site-footer-social a:hover svg,
             .site-footer-social a:focus-visible svg {
-                fill: #111827;
-                color: #111827;
+                fill: #ffffff;
+                color: #ffffff;
             }
             .site-footer-top {
                 position: absolute;
@@ -431,8 +450,8 @@
                 height: 42px;
                 border: 0;
                 border-radius: 9999px;
-                background: #ff9b00;
-                color: #111827;
+                background: #D53338;
+                color: #ffffff;
                 cursor: pointer;
                 display: inline-flex;
                 align-items: center;
@@ -442,12 +461,12 @@
             .site-footer-top svg {
                 width: 18px;
                 height: 18px;
-                fill: #111827;
+                fill: #ffffff;
                 display: block;
             }
             .site-footer-top:hover,
             .site-footer-top:focus-visible {
-                background: #e68c00;
+                background: #a82529;
                 color: #ffffff;
                 outline: none;
             }

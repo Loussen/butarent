@@ -141,8 +141,8 @@
         cursor: pointer;
     }
     .car-upload-box:hover {
-        border-color: #ff9b00;
-        background: #fffaf3;
+        border-color: #D53338;
+        background: #fef5f5;
     }
 </style>
 
